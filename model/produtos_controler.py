@@ -92,3 +92,5 @@ class Produtos:
                 conexao.close()
 
                 return resultado
+        
+
