@@ -49,7 +49,7 @@ def pagina_cadastro():
 def pagina_produto(filtro):
     lista_produtos = Produtos.obter_produtos(filtro)
     categorias = Produtos.obter_categorias() 
-    return render_template("inicial2.html", lista_produtos_html=lista_produtos, categorias=categorias)
+    return render_template("categorias.html", lista_produtos_html=lista_produtos, categorias=categorias)
 
 @app.route("/categoria/todos")
 def pagina_todos_produtos(): 
