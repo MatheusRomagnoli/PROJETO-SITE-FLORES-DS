@@ -27,7 +27,7 @@
   <header>
     <div class="header--top">
 
-      <img class="icone-logo" src="/static/img/logoAuraFloralInicio.svg" alt="">
+      <a href="/"><img class="icone-logo" src="/static/img/logoAuraFloralInicio.svg" alt=""></a>
 
       {% if session.get('nome_usuario') %}
       <div class="login__header"><a href="/logoff">Logoff</a></div>
@@ -41,7 +41,6 @@
           <li><a href="/categoria/{{categoria.id_categoria}}"
               class="menu__header-opcoes btn-header">{{categoria.categoria}}</a></li>
           {% endfor %}
-          <li><a href="/categoria/todos" class="menu__header-opcoes btn-header">Categorias</a></li>
         </ul>
         <div class="perfil">
           <a href="/logoff"><span class="material-symbols-outlined">account_circle</span></a>
