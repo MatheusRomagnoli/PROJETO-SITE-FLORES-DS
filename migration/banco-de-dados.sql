@@ -3,7 +3,7 @@ create database db_site_flores;
 use db_site_flores;
 
 create table tb_categorias (
-	id_categoria int auto_increment PRIMARY KEY,
+    id_categoria int auto_increment PRIMARY KEY,
     categoria varchar(20)
 );
 
@@ -13,7 +13,7 @@ VALUES  ('buque'),
         ('arranjo');
 
 create table tb_flores (
-	IDflor int auto_increment PRIMARY KEY,
+    IDflor int auto_increment PRIMARY KEY,
     nome varchar(20) NOT NULL,
     descricao varchar(20),
     preco varchar(20) NOT NULL,
@@ -40,7 +40,7 @@ VALUES  (1, 'buque1', 'descricao-buque1', '10,99', 1),
 
 
 create table tb_fotos_produto(
-	cod_foto int PRIMARY KEY auto_increment,
+    cod_foto int PRIMARY KEY auto_increment,
     IDflor INT, 
     FOREIGN KEY (IDflor) REFERENCES tb_flores(IDflor),
     url_foto1 varchar(250),
@@ -52,7 +52,7 @@ create table tb_fotos_produto(
 INSERT INTO tb_fotos_produto(IDflor, foto_principal, url_foto1, url_foto2, url_foto3)
 -- arranjo
 VALUES  (9, 'https://www.isabelaflores.com/media/catalog/product/a/l/alta-325-2.webp', 'https://www.isabelaflores.com/media/catalog/product/a/l/alta-234-0.webp', 'https://www.isabelaflores.com/media/catalog/product/a/l/alta-27-0.webp', 'https://www.isabelaflores.com/media/catalog/product/a/l/alta-80-0.webp'),
-		(10, 'https://www.isabelaflores.com/media/catalog/product/a/l/alta-325-2.webp', 'https://www.isabelaflores.com/media/catalog/product/a/l/alta-234-0.webp', 'https://www.isabelaflores.com/media/catalog/product/a/l/alta-27-0.webp', 'https://www.isabelaflores.com/media/catalog/product/a/l/alta-80-0.webp'),
+        (10, 'https://www.isabelaflores.com/media/catalog/product/a/l/alta-325-2.webp', 'https://www.isabelaflores.com/media/catalog/product/a/l/alta-234-0.webp', 'https://www.isabelaflores.com/media/catalog/product/a/l/alta-27-0.webp', 'https://www.isabelaflores.com/media/catalog/product/a/l/alta-80-0.webp'),
         (11, 'https://www.isabelaflores.com/media/catalog/product/a/l/alta-325-2.webp', 'https://www.isabelaflores.com/media/catalog/product/a/l/alta-234-0.webp', 'https://www.isabelaflores.com/media/catalog/product/a/l/alta-27-0.webp', 'https://www.isabelaflores.com/media/catalog/product/a/l/alta-80-0.webp'),
         (12, 'https://www.isabelaflores.com/media/catalog/product/a/l/alta-325-2.webp', 'https://www.isabelaflores.com/media/catalog/product/a/l/alta-234-0.webp', 'https://www.isabelaflores.com/media/catalog/product/a/l/alta-27-0.webp', 'https://www.isabelaflores.com/media/catalog/product/a/l/alta-80-0.webp'),
 -- buque
@@ -70,12 +70,12 @@ create table tb_usuario(
     usuario varchar(50) PRIMARY KEY NOT NULL,
     telefone int NOT NULL,
     endereco varchar(50) NOT NULL,
-    senha varchar(20) NOT NULL
+    senha varchar(250) NOT NULL
 );
 
 create table tb_compra (
-	codCompra int auto_increment PRIMARY KEY,
-	IDflor INT,
+    codCompra int auto_increment PRIMARY KEY,
+    IDflor INT,
     FOREIGN KEY (IDflor) REFERENCES tb_flores(IDflor)
 );
 

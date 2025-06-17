@@ -29,13 +29,12 @@
 
       <img class="icone-logo" src="/static/img/logoAuraFloralInicio.svg" alt="">
 
-      {% if session.nome %}
+      {% if session.get('nome_usuario') %}
       <div class="login__header"><a href="/logoff">Logoff</a></div>
-      <div class="nome__header"><a href="">{{session.nome}}</a></div>
-      {% else %}
-      <div class="login__header"><a href="/pagina/cadastro">Cadastro/Login</a></div>
-      <div class="nome__header"><a href="">ANONIMO</a></div>
-      {% endif %}
+      <div class="nome__header"><a href="">Olá {{ session.nome_usuario }}!</a></div>
+  {% else %}
+      <div class="login__header"><a href="/pagina/cadastro">Cadastro</a></div>
+  {% endif %}
       <nav>
         <ul>
           {% for categoria in categorias %}

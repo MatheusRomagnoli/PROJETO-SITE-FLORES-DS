@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, session
+from flask import Flask, render_template, redirect, session, request
 from model.produtos_controler import Produtos
 from model.user_controler import Usuario
 
@@ -14,14 +14,17 @@ def pagina_inicial():
     return render_template("inicial2.html", categorias = categorias, lista_produtos_html = produtos)
 
 # LOGIN E CADASTRO
-@app.route("/login")
+@app.route("/login", methods=["POST"])
 def login():
-    fazer_login = Usuario.login()
-    # session = uma lista | guardar informações do usuario
-    # criou uma lista "usuario" para guardar as listas (organizar)
-    session["nome"] = "Usuário"
-   
-    return redirect(fazer_login, "/")
+    usuario = request.form.get("usuario")
+    senha = request.form.get("senha")
+
+    login_sucesso = Usuario.login(usuario, senha) 
+
+    if login_sucesso: 
+        return redirect("/")
+    else:
+        return redirect("/pagina/login")
 
 @app.route("/pagina/login")
 def pagina_login():
@@ -32,10 +35,15 @@ def logoff():
     session.clear()
     return redirect("/")
 
-@app.route("/cadastro")
+@app.route("/cadastro", methods = ["post"])
 def cadastro():
-    fazer_cadastro = Usuario.cadastrar()
-    return redirect(fazer_cadastro, "/pagina/login")
+    
+    usuario = request.form.get("usuario")
+    telefone = request.form.get("telefone")
+    endereco = request.form.get("endereco")
+    senha = request.form.get("senha")
+    Usuario.cadastrar(usuario, telefone, endereco, senha)
+    return redirect("/pagina/login")
 
 @app.route("/pagina/cadastro")
 def pagina_cadastro():
