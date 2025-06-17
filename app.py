@@ -8,7 +8,10 @@ app.secret_key = "key"
 
 @app.route("/")
 def pagina_inicial():
-    return render_template("inicial2.html")
+    produtos = Produtos.obter_todos_produtos()
+    categorias = Produtos.obter_categorias()
+
+    return render_template("inicial2.html", categorias = categorias, lista_produtos_html = produtos)
 
 # LOGIN E CADASTRO
 @app.route("/login")
@@ -17,7 +20,7 @@ def login():
     # session = uma lista | guardar informações do usuario
     # criou uma lista "usuario" para guardar as listas (organizar)
     session["nome"] = "Usuário"
-    session["foto"] = "https://img.freepik.com/fotos-premium/foto-de-grande-angular-de-uma-unica-arvore-crescendo-sob-um-ceu-nublado-durante-um-por-do-sol-cercado-por-grama_181624-22807.jpg?semt=ais_hybrid&w=740"
+   
     return redirect(fazer_login, "/")
 
 @app.route("/pagina/login")
@@ -34,6 +37,9 @@ def cadastro():
     fazer_cadastro = Usuario.cadastrar()
     return redirect(fazer_cadastro, "/pagina/login")
 
+@app.route("/pagina/cadastro")
+def pagina_cadastro():
+    return render_template("cadastro.html")
 
 
 # CATEGORIAS PRODUTOS
@@ -42,17 +48,19 @@ def cadastro():
 @app.route("/categoria/<filtro>")
 def pagina_produto(filtro):
     lista_produtos = Produtos.obter_produtos(filtro)
-    return render_template("inicial2.html", lista_produtos_html = lista_produtos) 
+    categorias = Produtos.obter_categorias() 
+    return render_template("categorias.html", lista_produtos_html=lista_produtos, categorias=categorias)
 
 @app.route("/categoria/todos")
-def pagina_produtos():
+def pagina_todos_produtos(): 
     lista_todos_produtos = Produtos.obter_todos_produtos()
-    return render_template("inicial2.html", lista_todos_produtos_html = lista_todos_produtos) 
+    categorias = Produtos.obter_categorias() 
+    return render_template("inicial2.html", lista_produtos_html=lista_todos_produtos, categorias=categorias) 
 
-@app.route("/categorias")
-def categorias():
-    lista_categorias = Produtos.obter_categorias()
-    return render_template("inicial2.html", lista_categorias_html = lista_categorias)
+# @app.route("/categorias")
+# def categorias():
+#     lista_categorias = Produtos.obter_categorias()
+#     return render_template("inicial2.html", lista_categorias_html = lista_categorias)
 
 
 
