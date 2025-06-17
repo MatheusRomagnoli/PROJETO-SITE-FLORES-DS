@@ -2,29 +2,41 @@ create database db_site_flores;
 
 use db_site_flores;
 
+create table tb_categorias (
+	id_categoria int auto_increment PRIMARY KEY,
+    categoria varchar(20)
+);
+
+INSERT INTO tb_categorias (categoria)
+VALUES  ('buque'),
+        ('cesta'),
+        ('arranjo');
+
 create table tb_flores (
 	IDflor int auto_increment PRIMARY KEY,
     nome varchar(20) NOT NULL,
     descricao varchar(20),
     preco varchar(20) NOT NULL,
-    categoria varchar(20)
+    id_categoria INT NOT NULL,
+    FOREIGN KEY (id_categoria) REFERENCES tb_categorias(id_categoria)
 );
 
-INSERT INTO tb_flores (IDflor, nome, descricao, preco, categoria)
-VALUES  (1, 'buque1', 'descricao-buque1', '10,99', 'buque'),
-        (2, 'buque2', 'descricao-buque2', '10,99', 'buque'),
-        (3, 'buque3', 'descricao-buque3', '10,99', 'buque'),
-        (4, 'buque4', 'descricao-buque4', '10,99', 'buque'),
 
-        (5, 'cesta1', 'descricao-cesta1', '20,99', 'cesta'),
-        (6, 'cesta2', 'descricao-cesta2', '20,99', 'cesta'),
-        (7, 'cesta3', 'descricao-cesta3', '20,99', 'cesta'),
-        (8, 'cesta4', 'descricao-cesta4', '20,99', 'cesta'),
+INSERT INTO tb_flores (IDflor, nome, descricao, preco, id_categoria)
+VALUES  (1, 'buque1', 'descricao-buque1', '10,99', 1),
+        (2, 'buque2', 'descricao-buque2', '10,99', 1),
+        (3, 'buque3', 'descricao-buque3', '10,99', 1),
+        (4, 'buque4', 'descricao-buque4', '10,99', 1),
 
-        (9, 'arranjo1', 'descricao-arranjo1', '15,99', 'arranjo'),
-        (10, 'arranjo2', 'descricao-arranjo2', '15,99', 'arranjo'),
-        (11, 'arranjo3', 'descricao-arranjo3', '15,99', 'arranjo'),
-        (12, 'arranjo4', 'descricao-arranjo4', '15,99', 'arranjo');
+        (5, 'cesta1', 'descricao-cesta1', '20,99', 2),
+        (6, 'cesta2', 'descricao-cesta2', '20,99', 2),
+        (7, 'cesta3', 'descricao-cesta3', '20,99', 2),
+        (8, 'cesta4', 'descricao-cesta4', '20,99', 2),
+
+        (9, 'arranjo1', 'descricao-arranjo1', '15,99', 3),
+        (10, 'arranjo2', 'descricao-arranjo2', '15,99', 3),
+        (11, 'arranjo3', 'descricao-arranjo3', '15,99', 3),
+        (12, 'arranjo4', 'descricao-arranjo4', '15,99', 3);
 
 
 create table tb_fotos_produto(
@@ -67,5 +79,13 @@ create table tb_compra (
     FOREIGN KEY (IDflor) REFERENCES tb_flores(IDflor)
 );
 
-SELECT categoria from tb_flores
-GROUP BY categoria;
+
+SELECT tb_flores.nome, tb_flores.descricao, tb_flores.preco, tb_flores.id_categoria, tb_fotos_produto.foto_principal
+                        FROM tb_flores
+                        INNER JOIN tb_fotos_produto ON tb_flores.IDflor = tb_fotos_produto.IDflor;
+                        
+SELECT id_categoria, categoria from tb_categorias;
+SELECT tb_flores.nome, tb_flores.descricao, tb_flores.preco, tb_flores.id_categoria, tb_fotos_produto.foto_principal
+                        FROM tb_flores
+                        INNER JOIN tb_fotos_produto ON tb_flores.IDflor = tb_fotos_produto.IDflor
+                        WHERE tb_flores.id_categoria = 2;
