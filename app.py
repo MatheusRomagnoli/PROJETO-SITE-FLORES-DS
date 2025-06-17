@@ -8,10 +8,10 @@ app.secret_key = "key"
 
 @app.route("/")
 def pagina_inicial():
-    produtos = Produtos.obter_produtos()
+    produtos = Produtos.obter_todos_produtos()
     categorias = Produtos.obter_categorias()
 
-    return render_template("inicial2.html", categorias = categorias, produtos = produtos)
+    return render_template("inicial2.html", categorias = categorias, lista_produtos_html = produtos)
 
 # LOGIN E CADASTRO
 @app.route("/login")
@@ -48,17 +48,19 @@ def pagina_cadastro():
 @app.route("/categoria/<filtro>")
 def pagina_produto(filtro):
     lista_produtos = Produtos.obter_produtos(filtro)
-    return render_template("inicial2.html", lista_produtos_html = lista_produtos) 
+    categorias = Produtos.obter_categorias() 
+    return render_template("inicial2.html", lista_produtos_html=lista_produtos, categorias=categorias)
 
 @app.route("/categoria/todos")
-def pagina_produtos():
+def pagina_todos_produtos(): 
     lista_todos_produtos = Produtos.obter_todos_produtos()
-    return render_template("inicial2.html", lista_todos_produtos_html = lista_todos_produtos) 
+    categorias = Produtos.obter_categorias() 
+    return render_template("inicial2.html", lista_produtos_html=lista_todos_produtos, categorias=categorias) 
 
-@app.route("/categorias")
-def categorias():
-    lista_categorias = Produtos.obter_categorias()
-    return render_template("inicial2.html", lista_categorias_html = lista_categorias)
+# @app.route("/categorias")
+# def categorias():
+#     lista_categorias = Produtos.obter_categorias()
+#     return render_template("inicial2.html", lista_categorias_html = lista_categorias)
 
 
 
